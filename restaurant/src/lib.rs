@@ -15,60 +15,20 @@ mod tests {
 
 // 模块
 // Rust 中默认所有项（函数、方法、结构体、枚举、模块和常量）都是私有的
-mod front_of_house {
-    pub mod hosting {
-        pub fn add_to_waitlist() {}
-        
-        fn seat_at_table() {}
-    }
-    
-    mod serving {
-        fn take_order() {}
-        
-        fn server_order() {}
-        
-        fn take_payment() {}
-    }
-}
-
 fn serve_order() {}
 
-mod back_of_house {
-    fn fix_incorrect_order() {
-        cook_order();
-        super::serve_order();
-    }
-    
-    fn cook_order() {}
-    
-    pub struct Breakfast {
-        pub toast: String,
-        seasonal_fruit: String,
-    }
-    
-    impl Breakfast {
-        pub fn summer(toast: &str) -> Breakfast {
-            Breakfast {
-                toast: String::from(toast),
-                seasonal_fruit: String::from("peaches"),
-            }
-        }
-    }
-    
-    pub enum Appetizer {
-        Soup,
-        Salad,
-    }
-}
+mod front_of_house;
 
-use crate::front_of_house::hosting; // use front_of_house::hosting;
+// use front_of_house::hosting;
+pub use crate::front_of_house::hosting;
+
+mod back_of_house;
 
 pub fn eat_at_restaurant() {
     // Absolute path
-    crate::front_of_house::hosting::add_to_waitlist();
-    
+    // crate::front_of_house::hosting::add_to_waitlist();
     // Relative path
-    front_of_house::hosting::add_to_waitlist();
+    // front_of_house::hosting::add_to_waitlist();
     //---
     // Order a breakfast in the summer with Rye toast
     let mut meal = back_of_house::Breakfast::summer("Rye");
@@ -91,25 +51,36 @@ pub fn eat_at_restaurant() {
 
 // 使用 use 引入结构体、枚举和其他项时，习惯是指定它们的完整路径。
 use std::collections::HashMap;
+use std::fmt;
+use std::io;
+// 给引入起别名
+use std::fmt::Result;
+use std::io::Result as IoResult;
+//---
+// use std::cmp::Ordering;
+// use std::io;
+// <==>
+// use std::{cmp::Ordering, io};
+//---
+// use std::io;
+// use std::io::Write;
+// <==>
+// use std::io::{self, Write};
+
+// use std::collections::*;
 
 fn main() {
     let mut map = HashMap::new();
     map.insert(1, 2);
 }
 
-use std::fmt;
-use std::io;
+// fn function1() -> fmt::Result {
+//     // --snip--
+//     fmt::Result
+// }
+//
+// fn function2() -> io::Result<()> {
+//     // --snip--
+//     io::Result
+// }
 
-fn function1() -> fmt::Result {
-    // --snip--
-    fmt::Result
-}
-
-fn function2() -> io::Result<()> {
-    // --snip--
-    io::Result
-}
-
-// 给引入起别名
-use std::fmt::Result;
-use std::io::Result as IoResult;
