@@ -50,6 +50,10 @@ fn m6() {
     let f = File::open("hello.txt").expect("Failed to op Hello.txt");
 }
 
+fn m7(){
+    
+}
+
 fn main() {
     m6();
 }
