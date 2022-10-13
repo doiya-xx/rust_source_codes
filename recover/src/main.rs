@@ -7,7 +7,10 @@ fn m2() {
     v[99];
 }
 
+use std::fs;
 use std::fs::File;
+use std::io;
+use std::io::Read;
 use std::io::ErrorKind;
 
 fn m3() {
@@ -50,14 +53,64 @@ fn m6() {
     let f = File::open("hello.txt").expect("Failed to op Hello.txt");
 }
 
+// 传播错误
+fn read_username_from_file_1() -> Result<String, io::Error> {
+    let f = File::open("hello.txt");
+    let mut f = match f {
+        Ok(file) => file,
+        Err(e) => return Err(e),
+    };
+    let mut s = String::new();
+    match f.read_to_string(&mut s) {
+        Ok(_) => Ok(s),
+        Err(e) => Err(e),
+    }
+}
+
+// 传播错误的简写：? 运算符
+fn read_username_from_file_2() -> Result<String, io::Error> {
+    let mut f = File::open("hello.txt")?;
+    let mut s = String::new();
+    f.read_to_string(&mut s)?;
+    Ok(s)
+}
+
+// 链式方法调用来进一步缩短代码
+fn read_username_from_file_3() -> Result<String, io::Error> {
+    let mut s = String::new();
+    File::open("hello.txt")?.read_to_string(&mut s)?;
+    Ok(s)
+}
+
+fn read_username_from_file_4() -> Result<String, io::Error> {
+    fs::read_to_string("hello.txt")
+}
+
 fn m7(){
-    let f = File::open("hello.txt").expect("Failed to op Hello.txt");
+    let username = match read_username_from_file_1() {
+        Ok(s) => s,
+        Err(e) => e.to_string(),
+    };
+    println!("{}",username);
+    
 }
 
 fn m8(){
-    let f = File::open("hello.txt").expect("Failed to op Hello.txt");
+    let f = File::open("hello.txt")?;
+}
+
+// use std::error::Error;
+// fn main() -> Result<(), Box<dyn Error>> {
+//     let f = File::open("hello.txt")?;
+//     Ok(())
+// }
+
+fn m9() {
+    use std::net::IpAddr;
+    
+    let home: IpAddr = "127.0.0.1".parse().unwrap();
 }
 
 fn main() {
-    m6();
+    m9();
 }
