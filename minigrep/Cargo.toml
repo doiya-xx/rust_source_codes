@@ -1,8 +1,18 @@
 [package]
-name = "minigrep"
+name = "lxmon_minigrep"
 version = "0.1.0"
+authors = ["lxmon <>"]
 edition = "2021"
+description = "This is my first published crates."
+license = "MIT OR Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+
+# 默认配置，编译优化级别
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
