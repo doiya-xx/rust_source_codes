@@ -12,7 +12,7 @@ fn main() {
     });
     
     // 处理文件
-    if let Err(e) = minigrep::run(config) {
+    if let Err(e) = lxmon_minigrep::run(config) {
         eprintln!("Application error: {}", e);
         process::exit(1);
     }
