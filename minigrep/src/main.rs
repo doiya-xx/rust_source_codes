@@ -1,8 +1,7 @@
 // Rust标准库：获取命令行参数值
 // use std::env::args;
 use std::{env, process};
-
-use minigrep::Config;
+use lxmon_minigrep::Config;
 
 
 fn main() {
