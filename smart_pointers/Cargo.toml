@@ -1,0 +1,5 @@
+[workspace]
+members = [
+   "p_box",
+   "p_rc"
+]
