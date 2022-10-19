@@ -9,7 +9,7 @@ fn main() {
     // 但是没有更多的字符串让我们可以有效地应用数值 5。word 的值现在完全无效！
     
     // slice
-    let hello = &s[0..5]; // &s[..5]
+    let hello: &str = &s[0..5]; // &s[..5]
     let world = &s[6..11]; // &s[5..]
     
     // 数组slice

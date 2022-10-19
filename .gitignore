@@ -137,4 +137,5 @@ DataStructure/
 Temp/
 .idea/
 .fleet/
+.vscode
 **/.gitignore

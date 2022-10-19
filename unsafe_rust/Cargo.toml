@@ -1,5 +1,5 @@
 [package]
-name = "gui_xx"
+name = "unsafe_rust"
 version = "0.1.0"
 edition = "2021"
 
