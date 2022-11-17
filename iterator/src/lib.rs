@@ -1,4 +1,3 @@
-
 #[derive(PartialEq, Debug)]
 struct Shoe {
     size: u32,
@@ -103,4 +102,47 @@ mod tests {
             .sum();
         assert_eq!(18, sum);
     }
+    
+    #[test]
+    fn test_iterator() {
+        let iter: Vec<_> = Counter::new()
+            .zip(Counter::new().skip(1))
+            .collect();
+        
+        println!("{:?}", iter);
+        for i in iter {
+            println!("{:?}", i);
+        }
+    }
+    
+    #[test]
+    fn test_array() {
+        let a = vec![1, 2, 3, 4, 5];
+        let b = vec![3, 4];
+        // let c: Vec<&i32>= a.iter().collect();
+        let c: i32 = a.iter().skip(0)
+            .zip(b.iter())
+            // Vec<(&i32, &i32)>
+            .map(|(ai, bi)| {
+                if ai == bi { 0 } else { 1 }
+            })
+            // .sum();
+            .collect();
+        println!("{:?}", c);
+        for i in 0..=a.len()-b.len() {
+            let c: i32 = a.iter().skip(i)
+                .zip(b.iter())
+                .map(|(ai, bi)| {
+                    if ai == bi { 0 } else { 1 }
+                })
+                .sum();
+            if c == 0 {
+                result = "super";
+            } else {
+                continue
+            }
+            
+        }
+    }
 }
+
